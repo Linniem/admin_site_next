@@ -41,6 +41,10 @@ async function post(req, res) {
     }
 
     // valid account password & get account information
+    if (reqBody.account !== 'admin') {
+        res.status(400).json({ error: 'login failed' });
+        return;
+    }
     let userName = reqBody.account;
 
     let token = '';

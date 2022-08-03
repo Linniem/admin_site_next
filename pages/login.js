@@ -1,7 +1,11 @@
+// @ts-check
 import Head from 'next/head';
-import style from '../styles/login.module.css';
+import Router from 'next/router';
+import React, { useState } from 'react';
 import { FaUser, FaLock } from 'react-icons/fa';
-import { useState } from 'react';
+import style from '../styles/login.module.css';
+import { login } from '../client/loginApi.js';
+import { setToken, setUserName } from '../client/localStorage.js';
 
 export default function Login() {
     return (
@@ -22,42 +26,88 @@ function Wrapper({ children }) {
 }
 
 function Form() {
-    const [account, setAccount] = useState('');
+    const [account, setAccount] = useState('admin');
     const [password, setPassword] = useState('');
+    const [loginFailed, setLoginFailed] = useState(false);
+    const [emptyWarning, setEmptyWarning] = useState(false);
 
-    const handleClick = () => {
-        console.log('a', account, 'p', password);
+    const handleClickLogin = () => {
+        if (account === '' || password === '') {
+            setEmptyWarning(true);
+            return;
+        }
+
+        login(account, password)
+            .then((loginInfo) => {
+                setToken(loginInfo.token);
+                setUserName(loginInfo.userName);
+                Router.push('/');
+            })
+            .catch(() => {
+                setLoginFailed(true);
+            });
+    };
+
+    const handleKeyDown = (event) => {
+        setEmptyWarning(false);
+        setLoginFailed(false);
+        if (event.key === 'Enter') {
+            handleClickLogin();
+        }
+    };
+
+    const handleAccountChange = (e) => {
+        setAccount(e.target.value);
+    };
+
+    const handlePasswordChange = (e) => {
+        setPassword(e.target.value);
     };
 
     return (
         <div className={style.form}>
             <h2>Login Form</h2>
 
-            <Input value={account} setValue={setAccount}>
+            <Input
+                value={account}
+                onChange={handleAccountChange}
+                onKeyDown={handleKeyDown}
+            >
                 <FaUser size={'0.8rem'} />
             </Input>
             <br />
 
-            <Input type="password" value={password} setValue={setPassword}>
+            <Input
+                type="password"
+                value={password}
+                onChange={handlePasswordChange}
+                onKeyDown={handleKeyDown}
+            >
                 <FaLock size={'0.8rem'} />
             </Input>
             <br />
 
-            <Button text="Login" width="100%" onClick={handleClick} />
+            <Button text="Login" width="100%" onClick={handleClickLogin} />
+
+            {loginFailed && <p style={{ color: 'red' }}>login failed</p>}
+            {emptyWarning && (
+                <p style={{ color: 'red' }}>
+                    please input account and password
+                </p>
+            )}
         </div>
     );
 }
 
-function Input({ children, type = 'text', value, setValue }) {
+function Input({ children, type = 'text', value, onChange, onKeyDown }) {
     return (
         <div className={style.input}>
             {children}
             <input
                 type={type}
                 value={value}
-                onChange={(e) => {
-                    setValue(e.target.value);
-                }}
+                onChange={onChange}
+                onKeyDown={onKeyDown}
             />
         </div>
     );

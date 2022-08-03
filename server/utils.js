@@ -1,7 +1,6 @@
 import '../types/api.js';
 
 import * as jwt from 'jsonwebtoken';
-import { serialize, CookieSerializeOptions } from 'cookie';
 
 const secret = 'sssssssssssss';
 
