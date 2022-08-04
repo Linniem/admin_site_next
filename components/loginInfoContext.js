@@ -1,9 +1,11 @@
 import Router from 'next/router';
-import { createContext, useEffect, useReducer } from 'react';
+import { createContext, useEffect, useReducer, useContext } from 'react';
 import { getToken, getUserName } from '../client/localStorage.js';
 
-export const LoginInfoContext = createContext(null);
-export const LoginInfoDispatchContext = createContext(null);
+const LoginInfoContext = createContext({
+    userName: '',
+});
+const LoginInfoDispatchContext = createContext(() => {});
 
 export function LoginInfoProvider({ children }) {
     const [loginInfo, dispatch] = useReducer(loginInfoReducer, {
@@ -14,13 +16,14 @@ export function LoginInfoProvider({ children }) {
         const token = getToken();
         if (token === null && location.pathname != '/login') {
             Router.push('/login');
+            return;
         }
 
         const userName = getUserName();
         if (userName) {
             dispatch({
                 type: 'login',
-                userName: userName,
+                userName,
             });
         }
     }, []);
@@ -32,6 +35,14 @@ export function LoginInfoProvider({ children }) {
             </LoginInfoDispatchContext.Provider>
         </LoginInfoContext.Provider>
     );
+}
+
+export function useLoginInfo() {
+    return useContext(LoginInfoContext);
+}
+
+export function useLoginInfoDispatch() {
+    return useContext(LoginInfoDispatchContext);
 }
 
 function loginInfoReducer(loginInfo, action) {

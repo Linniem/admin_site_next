@@ -1,16 +1,21 @@
-import { LoginInfoProvider } from '../components/loginInfoContext';
+import Head from 'next/head';
+import Layout from '../components/layout';
 import '../styles/globals.css';
 
 function MyApp({ Component, pageProps }) {
-    return (
+    const getLayout =
+        Component.getLayout || ((page) => <Layout>{page}</Layout>);
+
+    return getLayout(
         <>
-            <LoginInfoProvider>
+            <Head>
                 <meta
                     name="viewport"
                     content="width=device-width, initial-scale=1.0"
                 ></meta>
-                <Component {...pageProps} />
-            </LoginInfoProvider>
+            </Head>
+
+            <Component {...pageProps} />
         </>
     );
 }

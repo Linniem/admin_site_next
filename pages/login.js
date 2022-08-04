@@ -2,11 +2,12 @@ import Head from 'next/head';
 import Router from 'next/router';
 import React, { useContext, useState } from 'react';
 import { FaUser, FaLock } from 'react-icons/fa';
+import { login } from '../client/loginApi';
+import { setToken, setUserName } from '../client/localStorage';
+import { useLoginInfoDispatch } from '../components/loginInfoContext';
 import style from '../styles/login.module.css';
-import { login } from '../client/loginApi.js';
-import { setToken, setUserName } from '../client/localStorage.js';
-import { LoginInfoDispatchContext } from '../components/loginInfoContext';
 
+Login.getLayout = (page) => page;
 export default function Login() {
     return (
         <>
@@ -30,7 +31,7 @@ function Form() {
     const [password, setPassword] = useState('');
     const [loginFailed, setLoginFailed] = useState(false);
     const [emptyWarning, setEmptyWarning] = useState(false);
-    const dispatchLogin = useContext(LoginInfoDispatchContext);
+    const dispatchLogin = useLoginInfoDispatch();
 
     const handleClickLogin = () => {
         if (account === '' || password === '') {
@@ -42,7 +43,10 @@ function Form() {
             .then((loginInfo) => {
                 setToken(loginInfo.token);
                 setUserName(loginInfo.userName);
-                dispatchLogin({ type: 'login', userName: loginInfo.userName });
+                dispatchLogin({
+                    type: 'login',
+                    userName: loginInfo.userName,
+                });
                 Router.push('/');
             })
             .catch(() => {
