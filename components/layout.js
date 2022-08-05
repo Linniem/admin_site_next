@@ -13,7 +13,7 @@ import { useLoginInfo, LoginInfoProvider } from './loginInfoContext';
 import { removeToken, removeUserName } from '../client/localStorage';
 import Router from 'next/router';
 
-export default function Layout({ children, title }) {
+export default function Layout({ children }) {
     return (
         <LoginInfoProvider>
             <div className={style.layout}>
@@ -233,6 +233,7 @@ function NavBar() {
                     position: absolute;
                     transform: translateX(-90px) translateY(20px);
                     box-shadow: 0 2px 12px 0 rgb(0 0 0 / 10%);
+                    background-color: white;
                 }
                 li {
                     font-size: 0.9rem;
