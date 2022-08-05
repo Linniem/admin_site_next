@@ -1,5 +1,11 @@
 import Router from 'next/router';
-import { createContext, useEffect, useReducer, useContext } from 'react';
+import {
+    createContext,
+    useEffect,
+    useReducer,
+    useContext,
+    useState,
+} from 'react';
 import { getToken, getUserName } from '../client/localStorage.js';
 
 const LoginInfoContext = createContext({
@@ -12,12 +18,16 @@ export function LoginInfoProvider({ children }) {
         userName: '',
     });
 
+    const [isLogin, setIsLogin] = useState(false);
+
     useEffect(() => {
         const token = getToken();
-        if (token === null && location.pathname != '/login') {
+        if (!token && location.pathname != '/login') {
             Router.push('/login');
             return;
         }
+
+        // TODO: add token validation with server
 
         const userName = getUserName();
         if (userName) {
@@ -26,12 +36,13 @@ export function LoginInfoProvider({ children }) {
                 userName,
             });
         }
+        setIsLogin(true);
     }, []);
 
     return (
         <LoginInfoContext.Provider value={loginInfo}>
             <LoginInfoDispatchContext.Provider value={dispatch}>
-                {children}
+                {isLogin ? children : ''}
             </LoginInfoDispatchContext.Provider>
         </LoginInfoContext.Provider>
     );

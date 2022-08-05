@@ -1,18 +1,14 @@
 const LS_KEY_TOKEN = 'token';
 const LS_KEY_USER_NAME = 'userName';
 
-export function setToken(token) {
-    localStorage.setItem(LS_KEY_TOKEN, token);
-}
+const set = (key, value) => localStorage.setItem(key, value);
+const get = (key) => localStorage.getItem(key);
+const remove = (key) => localStorage.removeItem(key);
 
-export function getToken() {
-    return localStorage.getItem(LS_KEY_TOKEN);
-}
+export const setToken = (token) => set(LS_KEY_TOKEN, token);
+export const getToken = () => get(LS_KEY_TOKEN);
+export const removeToken = () => remove(LS_KEY_TOKEN);
 
-export function setUserName(userName) {
-    localStorage.setItem(LS_KEY_USER_NAME, userName);
-}
-
-export function getUserName() {
-    return localStorage.getItem(LS_KEY_USER_NAME);
-}
+export const setUserName = (userName) => set(LS_KEY_USER_NAME, userName);
+export const getUserName = () => get(LS_KEY_USER_NAME);
+export const removeUserName = () => remove(LS_KEY_USER_NAME);
