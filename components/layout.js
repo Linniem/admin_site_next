@@ -4,10 +4,10 @@ import { useState } from 'react';
 import {
     AiFillDashboard,
     AiFillFolder,
-    AiFillShop,
     AiOutlineIssuesClose,
     AiOutlineAccountBook,
 } from 'react-icons/ai';
+import { MdEditNote } from 'react-icons/md';
 import style from '../styles/layout.module.css';
 import { useLoginInfo, LoginInfoProvider } from './loginInfoContext';
 import { removeToken, removeUserName } from '../client/localStorage';
@@ -22,7 +22,7 @@ export default function Layout({ children }) {
                 </div>
 
                 <main className={style.mainWrapper}>
-                    <NavBar></NavBar>
+                    <TopBar></TopBar>
                     <div>{children}</div>
                 </main>
             </div>
@@ -41,10 +41,10 @@ function Side() {
                 />
                 <SideMiddleButton displayText="Pages" icon={<AiFillFolder />}>
                     <SideLink
-                        href="/page1"
-                        linkName="Page1"
+                        href="/form"
+                        linkName="Form"
                         inMiddle={true}
-                        icon={<AiFillShop />}
+                        icon={<MdEditNote />}
                     />
                     <SideLink
                         href="/page2"
@@ -171,7 +171,7 @@ function SideMiddleButton({ children, displayText, icon }) {
     );
 }
 
-function NavBar() {
+function TopBar() {
     const loginInfo = useLoginInfo();
     const [dropdownOpen, setDropdownOpen] = useState(false);
 
