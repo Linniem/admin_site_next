@@ -10,7 +10,8 @@ export default function Home() {
                 <title>Dashboard</title>
             </Head>
             <h1>Welcom, {userInfo.userName} </h1>
-            <h1>This is index page(Dashboard).</h1>
+            <p>This is index page(Dashboard).</p>
+            <p>&lt;- You can check other pages with left panel.</p>
         </>
     );
 }
