@@ -23,7 +23,7 @@ export default function Layout({ children }) {
 
                 <main className={style.mainWrapper}>
                     <TopBar></TopBar>
-                    <div>{children}</div>
+                    <div style={{ padding: '15px' }}>{children}</div>
                 </main>
             </div>
         </LoginInfoProvider>
