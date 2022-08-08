@@ -4,8 +4,8 @@ import { useState } from 'react';
 import {
     AiFillDashboard,
     AiFillFolder,
-    AiOutlineIssuesClose,
     AiOutlineAccountBook,
+    AiOutlineTable,
 } from 'react-icons/ai';
 import { MdEditNote } from 'react-icons/md';
 import style from '../styles/layout.module.css';
@@ -47,10 +47,10 @@ function Side() {
                         icon={<MdEditNote />}
                     />
                     <SideLink
-                        href="/page2"
-                        linkName="Page2"
+                        href="/table"
+                        linkName="Table"
                         inMiddle={true}
-                        icon={<AiOutlineIssuesClose />}
+                        icon={<AiOutlineTable />}
                     />
                 </SideMiddleButton>
                 <SideLink
@@ -222,7 +222,7 @@ function TopBar() {
                 }
 
                 .avatar {
-                    padding: 5px 10px;
+                    padding: 5px 15px;
                     position: relative;
                 }
 

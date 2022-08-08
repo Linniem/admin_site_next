@@ -13,7 +13,7 @@ export default function ActivityFormPage() {
     return (
         <>
             <Head>
-                <title>Page1</title>
+                <title>Form</title>
             </Head>
             <AvtivityForm />
         </>

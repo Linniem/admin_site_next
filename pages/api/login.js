@@ -8,10 +8,6 @@ export default async function handler(req, res) {
             await post(req, res);
             break;
 
-        case 'GET':
-            res.status(200).json({ is_get: 'ok' });
-            break;
-
         default:
             res.status(404).end();
     }
