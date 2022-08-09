@@ -6,6 +6,8 @@ import {
     AiFillFolder,
     AiOutlineAccountBook,
     AiOutlineTable,
+    AiFillCaretRight,
+    AiFillCaretLeft,
 } from 'react-icons/ai';
 import { MdEditNote } from 'react-icons/md';
 import style from '../styles/layout.module.css';
@@ -14,16 +16,38 @@ import { removeToken, removeUserName } from '../client/localStorage';
 import Router from 'next/router';
 
 export default function Layout({ children }) {
+    const [sideOpen, setSideOpen] = useState(false);
+
     return (
         <div className={style.layout}>
-            <div className={style.sideWrapper}>
-                <Side></Side>
+            <div
+                className={`${style.sideWrapper} ${
+                    sideOpen ? style.sideWrapperMobileOpen : ''
+                }`}
+            >
+                <Side />
+
+                <div
+                    className={style.sideToggler}
+                    onClick={() => setSideOpen((o) => !o)}
+                >
+                    {sideOpen ? <AiFillCaretLeft /> : <AiFillCaretRight />}
+                </div>
             </div>
 
             <main className={style.mainWrapper}>
-                <TopBar></TopBar>
+                <TopBar />
                 <div style={{ padding: '15px' }}>{children}</div>
             </main>
+
+            {sideOpen ? (
+                <div
+                    className={style.sideOpenBg}
+                    onClick={() => setSideOpen(false)}
+                ></div>
+            ) : (
+                ''
+            )}
         </div>
     );
 }
