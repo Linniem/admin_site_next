@@ -37,7 +37,7 @@ export default function Layout({ children }) {
 
             <main className={style.mainWrapper}>
                 <TopBar />
-                <div style={{ padding: '15px', overflowX: 'scroll' }}>
+                <div style={{ padding: '15px', overflowX: 'auto' }}>
                     {children}
                 </div>
             </main>
