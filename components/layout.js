@@ -9,24 +9,22 @@ import {
 } from 'react-icons/ai';
 import { MdEditNote } from 'react-icons/md';
 import style from '../styles/layout.module.css';
-import { useLoginInfo, LoginInfoProvider } from './loginInfoContext';
+import { useLoginInfo } from './loginInfoContext';
 import { removeToken, removeUserName } from '../client/localStorage';
 import Router from 'next/router';
 
 export default function Layout({ children }) {
     return (
-        <LoginInfoProvider>
-            <div className={style.layout}>
-                <div className={style.sideWrapper}>
-                    <Side></Side>
-                </div>
-
-                <main className={style.mainWrapper}>
-                    <TopBar></TopBar>
-                    <div style={{ padding: '15px' }}>{children}</div>
-                </main>
+        <div className={style.layout}>
+            <div className={style.sideWrapper}>
+                <Side></Side>
             </div>
-        </LoginInfoProvider>
+
+            <main className={style.mainWrapper}>
+                <TopBar></TopBar>
+                <div style={{ padding: '15px' }}>{children}</div>
+            </main>
+        </div>
     );
 }
 
