@@ -52,8 +52,8 @@ function Side() {
                     />
                 </SideMiddleButton>
                 <SideLink
-                    href="/page3"
-                    linkName="Page3"
+                    href="/charts"
+                    linkName="Charts"
                     icon={<AiOutlineAccountBook />}
                 />
             </ul>
