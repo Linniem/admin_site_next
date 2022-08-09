@@ -130,6 +130,7 @@ function Button({ text, width = '140px', onClick }) {
                 borderColor: '#409eff',
                 borderRadius: '4px',
                 padding: '12px 20px',
+                cursor: 'pointer',
             }}
         >
             {text}
